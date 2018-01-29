@@ -13,28 +13,13 @@ if [ "$TALIB" -eq "0" ]; then
 
   puts-step "Installing TA-Lib library source code"
   echo "Download & unpack..." | indent
-  wget -q web.ajinsys.com/ta-lib/ta-lib-0.4.0-src.tar.gz > /dev/null 2>&1
+  wget -q http://web.ajinsys.com/ta-lib/ta-lib-0.4.0-src.tar.gz > /dev/null 2>&1
   tar -xf ta-lib-0.4.0-src.tar.gz  && cd ta-lib > /dev/null 2>&1
   echo "Compile..." | indent
-  ./configure --includedir=/app/.heroku/python/include/${PYTHON} --libdir=/app/.heroku/python/lib --bindir=/app/.heroku/python/bin > /dev/null 2>&1
+  ./configure --includedir=/app/.heroku/python/include/${PYTHON} --libdir=/app/vendor/talib/lib --bindir=/app/.heroku/python/bin > /dev/null 2>&1
   make > /dev/null 2>&1
   echo "Install..." | indent
   make install > /dev/null 2>&1
   echo "TA-Lib library successfully installed" | indent
-  echo "ls /app/.heroku/python/"
-  ls /app/.heroku/python/
-  echo "ls /app/.heroku/python/lib"
-  ls /app/.heroku/python/lib
-  echo "ls /app/.heroku/python/bin"
-  ls /app/.heroku/python/bin
   /app/.heroku/python/bin/pip install TA-Lib 2>&1 | cleanup | indent
-
-  rm -rf $CACHE_DIR/.heroku/python/
-  cp -R /app/.heroku/python/ $CACHE_DIR/.heroku/
-  echo "Copy to _build/prod/lib/etalib/priv" | indent
-  mkdir -p $CACHE_DIR/_build/prod/lib/etalib/priv/
-  cp -R /app/.heroku/python/lib/* $CACHE_DIR/_build/prod/lib/etalib/priv/
-  cd /app/lib
-  cp -R /app/.heroku/python/lib/* /app/lib
-  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
 fi
