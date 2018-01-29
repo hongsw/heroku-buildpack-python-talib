@@ -34,6 +34,7 @@ if [ "$TALIB" -eq "0" ]; then
   echo "Copy to _build/prod/lib/etalib/priv" | indent
   mkdir -p $CACHE_DIR/_build/prod/lib/etalib/priv/
   cp -R /app/.heroku/python/lib/* $CACHE_DIR/_build/prod/lib/etalib/priv/
-  cd /app/.heroku/python/lib
+  cd /app/lib
+  cp -R /app/.heroku/python/lib/* /app/lib
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
 fi
