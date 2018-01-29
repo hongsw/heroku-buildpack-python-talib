@@ -27,5 +27,6 @@ if [ "$TALIB" -eq "0" ]; then
   rm -rf $CACHE_DIR/.heroku/python/
   cp -R /app/.heroku/python/ $CACHE_DIR/.heroku/
   echo "Copy to _build/prod/lib/etalib/priv" | indent
+  mkdir -p $CACHE_DIR/_build/prod/lib/etalib/priv/
   cp -R /app/.heroku/python/lib/* $CACHE_DIR/_build/prod/lib/etalib/priv/
 fi
